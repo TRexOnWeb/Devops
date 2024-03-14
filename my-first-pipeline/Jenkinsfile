@@ -1,24 +1,9 @@
 pipeline {
-  agent none
+  agent {
+    docker { image 'node:16-alpine' }
+  }
   stages {
-    stage('Back-end') {
-      agent {
-        docker { 
-          image 'maven:3.8.1-adoptopenjdk-11' 
-          reuseNode true  // Keep the container running after the stage
-        }
-      }
-      steps {
-        sh 'mvn --version'
-      }
-    }
-    stage('Front-end') {
-      agent {
-        docker { 
-          image 'node:16-alpine' 
-          reuseNode true  // Keep the container running after the stage
-        }
-      }
+    stage('Test') {
       steps {
         sh 'node --version'
       }
